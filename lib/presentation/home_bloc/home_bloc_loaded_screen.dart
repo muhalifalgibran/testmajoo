@@ -4,9 +4,9 @@ import 'package:majootestcase/bloc/home_bloc/home_bloc_cubit.dart';
 import 'package:majootestcase/data/models/movie_response.dart';
 
 class HomeBlocLoadedScreen extends StatelessWidget {
-  final List<Data> data;
+  List<Data> data;
 
-  const HomeBlocLoadedScreen({Key key, this.data}) : super(key: key);
+  HomeBlocLoadedScreen({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +37,14 @@ class HomeBlocLoadedScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               child: Text(
-                data.l,
+                data.l ?? '',
                 textDirection: TextDirection.ltr,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(25),
-              child: Image.network(data.i.imageUrl),
+              child: Image.network(data.i?.imageUrl ?? ''),
             ),
           ],
         ),

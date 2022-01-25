@@ -8,7 +8,7 @@ class DatabaseLocator {
   DatabaseLocator._constructor();
   static final DatabaseLocator instance = DatabaseLocator._constructor();
 
-  static Database _database;
+  static Database? _database;
   Future<Database> get database async => _database ??= await initDb();
 
   DatabaseLocator();

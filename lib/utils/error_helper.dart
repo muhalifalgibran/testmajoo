@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 class ErrorHelper {
   static String getErrorMessage(error) {
     print('error helper === $error');
-    String message=  "Something went wrong.";
+    String message = "Something went wrong.";
     if (error is DioError) {
       message = error.message;
     }
@@ -16,7 +16,8 @@ class ErrorHelper {
     print(
         'error === ${error.response}  ==== ${error.response != null ? error.response?.data : 'noresponse'} ==== ${error.response != null ? error.response?.extra : 'no response'}=== ${error.message}');
     if (error is DioError) {
-      if (error.error is SocketException || error.type == DioErrorType.CONNECT_TIMEOUT) {
+      if (error.error is SocketException ||
+          error.type == DioErrorType.connectTimeout) {
         message =
             "Cannot connect to server. Make sure you have proper internet connection";
       } else if (error.response != null &&

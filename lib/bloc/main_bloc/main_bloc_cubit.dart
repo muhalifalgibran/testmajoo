@@ -8,7 +8,7 @@ class MainBlocCubit extends Cubit<MainBlocState> {
   void fetchHistoryLogin() async {
     emit(MainInitialState());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    bool isLoggedIn = sharedPreferences.getBool("is_logged_in");
+    bool? isLoggedIn = sharedPreferences.getBool("is_logged_in");
     if (isLoggedIn == null) {
       emit(MainLogginState());
     } else {

@@ -2,9 +2,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-Dio dioInstance;
+Dio? dioInstance;
 createInstance() async {
-
   var options = BaseOptions(
       baseUrl: "https://imdb8.p.rapidapi.com/auto-complete?q=game%20of%20thr",
       connectTimeout: 12000,
@@ -14,7 +13,7 @@ createInstance() async {
         "x-rapidapi-host": "imdb8.p.rapidapi.com"
       });
   dioInstance = new Dio(options);
-  dioInstance.interceptors.add(PrettyDioLogger(
+  dioInstance?.interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
       responseBody: true,
@@ -22,12 +21,11 @@ createInstance() async {
       error: true,
       compact: true,
       maxWidth: 90));
-
 }
 
-Future<Dio> dio() async {
+Future<Dio?> dio() async {
   await createInstance();
-  dioInstance.options.baseUrl = "https://imdb8.p.rapidapi.com/auto-complete?q=game%20of%20thr";
+  dioInstance?.options.baseUrl =
+      "https://imdb8.p.rapidapi.com/auto-complete?q=game%20of%20thr";
   return dioInstance;
 }
-

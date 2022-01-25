@@ -12,7 +12,7 @@ class AuthBlocCubit extends Cubit<AuthBlocState> {
   void fetchHistoryLogin() async {
     emit(AuthBlocInitialState());
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    bool isLoggedIn = sharedPreferences.getBool("is_logged_in");
+    bool? isLoggedIn = sharedPreferences.getBool("is_logged_in");
     if (isLoggedIn == null) {
       print('assd1');
 

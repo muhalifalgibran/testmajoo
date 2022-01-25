@@ -14,9 +14,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterState extends State<RegisterPage> {
-  final _emailController = TextController();
-  final _usernameController = TextController();
-  final _passwordController = TextController();
+  final _emailController = TextController(initialValue: '');
+  final _usernameController = TextController(initialValue: '');
+  final _passwordController = TextController(initialValue: '');
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   AuthBlocCubit authBlocCubit = AuthBlocCubit();
 
@@ -33,7 +33,7 @@ class _RegisterState extends State<RegisterPage> {
         body: BlocListener<AuthBlocCubit, AuthBlocState>(
             listener: (context, state) {
               if (state is AuthBlocLoadedState) {
-                Scaffold.of(context).showSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Register Berhasil'),
                   ),
@@ -48,7 +48,7 @@ class _RegisterState extends State<RegisterPage> {
                   ),
                 );
               } else if (state is AuthBlocLoadingState) {
-                return LoadingIndicator();
+                LoadingIndicator();
               }
             },
             child: SingleChildScrollView(

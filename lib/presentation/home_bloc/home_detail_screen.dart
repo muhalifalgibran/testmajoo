@@ -4,9 +4,9 @@ import 'package:majootestcase/bloc/home_bloc/home_bloc_cubit.dart';
 import 'package:majootestcase/data/models/movie_response.dart';
 
 class HomeDetailScreen extends StatelessWidget {
-  final Data data;
+  final Data? data;
   const HomeDetailScreen({
-    Key key,
+    Key? key,
     this.data,
   }) : super(key: key);
 
@@ -17,28 +17,28 @@ class HomeDetailScreen extends StatelessWidget {
         return WillPopScope(
           onWillPop: () async {
             BlocProvider.of<HomeBlocCubit>(context)..fetchingData();
-            return;
+            return true;
           },
           child: Container(
             child: Column(
               children: [
                 Center(
                   child: Image.network(
-                    data.i.imageUrl,
+                    data?.i?.imageUrl ?? '',
                     height: 200,
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
-                    data.l,
+                    data?.l ?? '',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
-                    data.year.toString(),
+                    data!.year.toString(),
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),
@@ -48,9 +48,9 @@ class HomeDetailScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: data.series.length,
+                    itemCount: data?.series?.length ?? 0,
                     itemBuilder: (context, index) {
-                      return movieSeries(data.series[index], context);
+                      return movieSeries(data!.series![index], context);
                     },
                   ),
                 )
@@ -65,10 +65,10 @@ class HomeDetailScreen extends StatelessWidget {
   Widget movieSeries(Series seri, BuildContext context) {
     return Stack(
       children: [
-        Image.network(seri.i.imageUrl),
+        Image.network(seri.i?.imageUrl ?? ''),
         Center(
           child: Text(
-            seri.l,
+            seri.l ?? '',
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),

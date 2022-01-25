@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePageScreen extends StatelessWidget {
-  const MyHomePageScreen({Key key}) : super(key: key);
+  const MyHomePageScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +45,12 @@ class MyHomePageScreen extends StatelessWidget {
       listener: (context, state) {
         print(state);
         if (state is MainInitialState) {
-          return BlocProvider(
+          BlocProvider(
             create: (context) => AuthBlocCubit(),
             child: LoginPage(),
           );
         } else if (state is MainLogginState) {
-          return Navigator.push(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => BlocProvider(
@@ -60,7 +60,7 @@ class MyHomePageScreen extends StatelessWidget {
             ),
           );
         } else if (state is MainIsLoggedInstate) {
-          return Navigator.push(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => BlocProvider(

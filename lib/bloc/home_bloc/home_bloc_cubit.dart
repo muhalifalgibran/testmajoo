@@ -11,25 +11,25 @@ class HomeBlocCubit extends Cubit<HomeBlocState> {
   void fetchingData() async {
     emit(HomeBlocInitialState());
     ApiServices apiServices = ApiServices();
-    MovieResponse movieResponse = await apiServices.getMovieList();
+    MovieResponse? movieResponse = await apiServices.getMovieList();
     if (movieResponse == null) {
       emit(HomeBlocErrorState(
         "Error Unknown",
       ));
     } else {
-      emit(HomeBlocLoadedState(movieResponse.data));
+      emit(HomeBlocLoadedState(movieResponse.data ?? []));
     }
   }
 
   void retryConnection() async {
     ApiServices apiServices = ApiServices();
-    MovieResponse movieResponse = await apiServices.getMovieList();
+    MovieResponse? movieResponse = await apiServices.getMovieList();
     if (movieResponse == null) {
       emit(HomeBlocErrorState(
         "Error Unknown",
       ));
     } else {
-      emit(HomeBlocLoadedState(movieResponse.data));
+      emit(HomeBlocLoadedState(movieResponse.data ?? []));
     }
   }
 

@@ -14,8 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
-  final _emailController = TextController();
-  final _passwordController = TextController();
+  final _emailController = TextController(initialValue: '');
+  final _passwordController = TextController(initialValue: '');
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
   bool _isObscurePassword = true;

@@ -9,7 +9,7 @@ import '../../bloc/home_bloc/home_bloc_cubit.dart';
 import 'home_bloc_loaded_screen.dart';
 
 class HomeBlocScreen extends StatelessWidget {
-  const HomeBlocScreen({Key key}) : super(key: key);
+  const HomeBlocScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
