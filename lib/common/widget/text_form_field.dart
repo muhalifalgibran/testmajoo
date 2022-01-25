@@ -9,7 +9,7 @@ class CustomTextFormField extends CustomFormField<String> {
     String? label,
     String? title,
     String? hint,
-    TextController? controller,
+    required TextEditingController controller,
     BuildContext? context,
     bool enabled = true,
     bool mandatory = true,
@@ -60,7 +60,7 @@ class TextController extends CustomFormFieldController<String> {
 
 class _CustomTextForm extends StatefulWidget {
   final FormFieldState<String>? state;
-  final TextController? controller;
+  final TextEditingController? controller;
   final double? padding;
   final String? label;
   final String? hint;
@@ -145,9 +145,8 @@ class _CustomTextFormState extends State<_CustomTextForm> {
                   SizedBox(height: 3),
                   Stack(
                     children: <Widget>[
-                      if (widget.controller?.textController == null ||
-                          widget.controller?.textController.text.isEmpty ==
-                              true)
+                      if (widget.controller == null ||
+                          widget.controller?.text.isEmpty == true)
                         Positioned(
                             top: _label != null
                                 ? 17
@@ -177,7 +176,7 @@ class _CustomTextFormState extends State<_CustomTextForm> {
                           focusNode: _focusNode,
                           textAlignVertical:
                               _label == null ? TextAlignVertical.center : null,
-                          controller: widget.controller?.textController,
+                          controller: widget.controller,
                           decoration: defaultInputDecoration.copyWith(
                               border: InputBorder.none,
                               focusedBorder: InputBorder.none,
@@ -194,8 +193,7 @@ class _CustomTextFormState extends State<_CustomTextForm> {
                                       IconButton(
                                         icon: const Icon(Icons.cancel),
                                         onPressed: () {
-                                          widget.controller?.textController
-                                              .clear();
+                                          widget.controller?.text = '';
                                         },
                                       )
                                   : null),

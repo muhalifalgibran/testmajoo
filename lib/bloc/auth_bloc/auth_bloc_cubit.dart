@@ -40,7 +40,6 @@ class AuthBlocCubit extends Cubit<AuthBlocState> {
         String data = user.toJson().toString();
         sharedPreferences.setString("user_value", data);
         emit(AuthBlocLoggedInState());
-        print('this');
         return;
       }
     }

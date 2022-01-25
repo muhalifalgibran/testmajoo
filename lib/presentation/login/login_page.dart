@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:majootestcase/bloc/auth_bloc/auth_bloc_cubit.dart';
 import 'package:majootestcase/bloc/home_bloc/home_bloc_cubit.dart';
-import 'package:majootestcase/common/widget/custom_button.dart';
 import 'package:majootestcase/common/widget/text_form_field.dart';
 import 'package:majootestcase/data/models/user.dart';
 import 'package:majootestcase/presentation/home_bloc/home_bloc_screen.dart';
 import 'package:majootestcase/presentation/login/register_page.dart';
+import 'package:majootestcase/utils/app_style.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,8 +14,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
-  final _emailController = TextController(initialValue: '');
-  final _passwordController = TextController(initialValue: '');
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
   bool _isObscurePassword = true;
@@ -77,10 +77,16 @@ class _LoginState extends State<LoginPage> {
                 SizedBox(
                   height: 50,
                 ),
-                CustomButton(
-                  text: 'Login',
-                  onPressed: handleLogin,
-                  height: 100,
+                ConstrainedBox(
+                  constraints: const BoxConstraints.tightFor(
+                      width: double.infinity, height: 48),
+                  child: ElevatedButton(
+                    style: AppStyleWidget.btnOn(context),
+                    onPressed: handleLogin,
+                    child: Text(
+                      'Login',
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 50,
@@ -167,16 +173,16 @@ class _LoginState extends State<LoginPage> {
   }
 
   void handleLogin() async {
-    final _email = _emailController.value;
-    final _password = _passwordController.value;
-    if (formKey.currentState?.validate() == true &&
-        _email != null &&
-        _password != null) {
-      AuthBlocCubit authBlocCubit = AuthBlocCubit();
+    final _email = _emailController.text;
+    final _password = _passwordController.text;
+    if (formKey.currentState?.validate() == false &&
+        _email != '' &&
+        _password != '') {
       User user = User(
         email: _email,
         password: _password,
       );
+      BlocProvider.of<AuthBlocCubit>(context).getUser();
       BlocProvider.of<AuthBlocCubit>(context).loginUser(user);
     }
   }

@@ -7,6 +7,7 @@ import 'package:majootestcase/common/widget/text_form_field.dart';
 import 'package:majootestcase/data/models/user.dart';
 import 'package:majootestcase/presentation/extra/loading.dart';
 import 'package:majootestcase/presentation/home_bloc/home_bloc_screen.dart';
+import 'package:majootestcase/utils/app_style.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -14,9 +15,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterState extends State<RegisterPage> {
-  final _emailController = TextController(initialValue: '');
-  final _usernameController = TextController(initialValue: '');
-  final _passwordController = TextController(initialValue: '');
+  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
   AuthBlocCubit authBlocCubit = AuthBlocCubit();
 
@@ -81,10 +82,16 @@ class _RegisterState extends State<RegisterPage> {
                     SizedBox(
                       height: 50,
                     ),
-                    CustomButton(
-                      text: 'Daftar',
-                      onPressed: () => handleRegister(context),
-                      height: 100,
+                    ConstrainedBox(
+                      constraints: const BoxConstraints.tightFor(
+                          width: double.infinity, height: 48),
+                      child: ElevatedButton(
+                        style: AppStyleWidget.btnOn(context),
+                        onPressed: () => handleRegister(context),
+                        child: Text(
+                          'Daftar',
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 50,
@@ -173,13 +180,13 @@ class _RegisterState extends State<RegisterPage> {
   }
 
   void handleRegister(context) async {
-    final _email = _emailController.value;
-    final _password = _passwordController.value;
-    final _username = _usernameController.value;
-    if (formKey.currentState?.validate() == true &&
-        _email != null &&
-        _password != null &&
-        _username != null) {
+    final _email = _emailController.text;
+    final _password = _passwordController.text;
+    final _username = _usernameController.text;
+    if (formKey.currentState?.validate() == false &&
+        _email != '' &&
+        _password != '' &&
+        _username != '') {
       User user = User(email: _email, password: _password, userName: _username);
       BlocProvider.of<AuthBlocCubit>(context).addUser(user);
     }
